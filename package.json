@@ -58,6 +58,7 @@
     "@vinejs/vine": "^2.0.0",
     "better-sqlite3": "^9.6.0",
     "luxon": "^3.4.4",
+    "node": "^20.12.2",
     "reflect-metadata": "^0.2.2",
     "sqlite3": "^5.1.7"
   },
