@@ -9,6 +9,6 @@ export default class extends BaseSeeder {
       {nome: 'Felippo', cpf:"456.789.457-99", telefone:'99677-8890'},
       {nome: 'Pietra', cpf:"987.345.769-88", telefone:'98677-3321'},
     ])
-
+ 
   }
 }
