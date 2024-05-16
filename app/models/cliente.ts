@@ -5,6 +5,15 @@ export default class Cliente extends BaseModel {
   @column({ isPrimary: true })
   declare id: number
 
+  @column()
+  declare nome: string
+
+  @column()
+  declare cpf: number
+
+  @column()
+  declare telefone: number
+
   @column.dateTime({ autoCreate: true })
   declare createdAt: DateTime
 

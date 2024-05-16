@@ -1,4 +1,4 @@
-// import type { HttpContext } from '@adonisjs/core/http'
+ import type { HttpContext } from '@adonisjs/core/http'
 
 import Produto from "../models/produto.js";
 
@@ -9,7 +9,10 @@ export default class ProdutosController {
         const page = request.input('page', 1)
         const perPage = request.input('perPage', 10)
 
-        return await Produto.query().paginate(page, perPage)
+        return await Produto.query()
+                            .preload('tipo')
+                            .preload('ingredientes')
+                            .paginate(page, perPage)
     }
 
     async show({params}: HttpContext){

@@ -1,6 +1,6 @@
-// import type { HttpContext } from '@adonisjs/core/http'
+ import type { HttpContext } from '@adonisjs/core/http'
+import ProdutoComanda from '../models/produto_comanda.js'
 
-import ProdutoComanda from "../models/ProdutoComanda.js"
 
 export default class ProdutoComandasController {
 
@@ -17,25 +17,25 @@ export default class ProdutoComandasController {
     }
 
     async store({request}: HttpContext){
-        const dados = request.only(['produtoId', 'comandaId'])
+        const dados = request.only(['produtoId', 'comandaId', 'quantidade'])
         return await ProdutoComanda.create(dados)
     }
 
     async update({params, request}: HttpContext){
 
-        const ProdutoComanda = await ProdutoComanda.findOrFail(params.id)
-        const dados = request.only(['produtoId', 'comandaId'])
+        const produtoComanda = await ProdutoComanda.findOrFail(params.id)
+        const dados = request.only(['produtoId', 'comandaId', 'quantidade'])
 
-        ProdutoComanda.merge(dados)
-        return await ProdutoComanda.save()
+        produtoComanda.merge(dados)
+        return await produtoComanda.save()
     }
 
 
     async destroy({params}: HttpContext){
-       const ProdutoComanda = await ProdutoComanda.findOrFail(params.id)
+       const produtoComanda = await ProdutoComanda.findOrFail(params.id)
 
     
-        await ProdutoComanda.delete()
-        return {msg: 'Registro deletado com sucesso', ProdutoComanda}
+        await produtoComanda.delete()
+        return {msg: 'Registro deletado com sucesso', produtoComanda}
     }
 }

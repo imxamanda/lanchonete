@@ -1,4 +1,4 @@
-// import type { HttpContext } from '@adonisjs/core/http'
+ import type { HttpContext } from '@adonisjs/core/http'
 
 import ProdutoIngrediente from "../models/produto_ingrediente.js"
 
@@ -22,19 +22,19 @@ export default class ProdutoIngredientesController {
 
     async update({params, request}: HttpContext){
 
-        const ProdutoIngrediente = await ProdutoIngrediente.findOrFail(params.id)
+        const produtoIngrediente = await ProdutoIngrediente.findOrFail(params.id)
         const dados = request.only(['produtoId', 'ingredienteId'])
 
-        ProdutoIngrediente.merge(dados)
-        return await ProdutoIngrediente.save()
+        produtoIngrediente.merge(dados)
+        return await produtoIngrediente.save()
     }
 
 
     async destroy({params}: HttpContext){
-       const ProdutoIngrediente = await ProdutoIngrediente.findOrFail(params.id)
+       const produtoIngrediente = await ProdutoIngrediente.findOrFail(params.id)
 
     
-        await ProdutoIngrediente.delete()
-        return {msg: 'Registro deletado com sucesso', ProdutoIngrediente}
+        await produtoIngrediente.delete()
+        return {msg: 'Registro deletado com sucesso', produtoIngrediente}
     }
 }

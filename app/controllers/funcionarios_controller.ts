@@ -1,4 +1,5 @@
-// import type { HttpContext } from '@adonisjs/core/http'
+ import type { HttpContext } from '@adonisjs/core/http'
+import Funcionario from '../models/funcionario.js'
 
 export default class FuncionariosController {
     async index({request}: HttpContext){
@@ -21,7 +22,7 @@ export default class FuncionariosController {
     async update({params, request}: HttpContext){
 
         const funcionario = await Funcionario.findOrFail(params.id)
-        const dados = request.only(['nome', 'cpf', 'endereco', 'sexo', 'telefone', 'cargoId'])
+        const dados = request.only(['nome', 'cpf', 'sexo', 'telefone', 'cargoId'])
 
         funcionario.merge(dados)
         return await funcionario.save()

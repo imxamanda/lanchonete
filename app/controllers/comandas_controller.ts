@@ -1,4 +1,4 @@
-// import type { HttpContext } from '@adonisjs/core/http'
+ import type { HttpContext } from '@adonisjs/core/http'
 
 import Comanda from "../models/comanda.js"
 
@@ -17,26 +17,26 @@ export default class ComandasController {
     }
 
     async store({request}: HttpContext){
-        const dados = request.only(['mesa', 'funcionarioId', 'clienteId', 'forma_PagamentoId', 'dataPagamento','data'])
+        const dados = request.only(['mesa', 'funcionarioId', 'clienteId', 'formaPagamentoId', 'dataPagamento','data'])
         return await Comanda.create(dados)
     }
 
     async update({params, request}: HttpContext){
 
-        const Comanda = await Comanda.findOrFail(params.id)
+        const comanda = await Comanda.findOrFail(params.id)
         const dados = request.only(['mesa', 'funcionarioId', 'clienteId', 'forma_PagamentoId', 'dataPagamento', 'data'])
 
-        Comanda.merge(dados)
-        return await Comanda.save()
+        comanda.merge(dados)
+        return await comanda.save()
     }
 
 
     async destroy({params}: HttpContext){
-       const Comanda = await Comanda.findOrFail(params.id)
+       const comanda = await Comanda.findOrFail(params.id)
 
     
-        await Comanda.delete()
-        return {msg: 'Registro deletado com sucesso', Comanda}
+        await comanda.delete()
+        return {msg: 'Registro deletado com sucesso', comanda}
     }
 
 }
