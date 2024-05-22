@@ -7,11 +7,16 @@ export default class IngredientesController {
         const page = request.input('page', 1)
         const perPage = request.input('perPage', 10)
 
-        return await Ingrediente.query().paginate(page, perPage)
+        return await Ingrediente.query()
+                                .preload('produtos')
+                                .paginate(page, perPage);
     }
 
     async show({params}: HttpContext){
-        return await Ingrediente.findOrFail(params.id)
+        return await Ingrediente.query()
+                                .where('id', params.id)
+                                .preload('produtos')
+                                .firstOrFail();
     }
 
     async store({request}: HttpContext){

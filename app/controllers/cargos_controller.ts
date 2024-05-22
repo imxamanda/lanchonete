@@ -1,5 +1,4 @@
  import type { HttpContext } from '@adonisjs/core/http'
-
 import Cargo from "../models/cargo.js"
 
 export default class CargosController {
@@ -9,11 +8,16 @@ export default class CargosController {
         const page = request.input('page', 1)
         const perPage = request.input('perPage', 10)
 
-        return await Cargo.query().paginate(page, perPage)
+         return await Cargo.query()
+                          .preload('funcionarios')
+                          .paginate(page, perPage);
     }
 
     async show({params}: HttpContext){
-        return await Cargo.findOrFail(params.id)
+        return await Cargo.query()
+                          .where('id', params.id)
+                          .preload('funcionarios')
+                          .firstOrFail();
     }
 
     async store({request}: HttpContext){

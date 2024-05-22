@@ -7,11 +7,19 @@ export default class FuncionariosController {
         const page = request.input('page', 1)
         const perPage = request.input('perPage', 10)
 
-        return await Funcionario.query().paginate(page, perPage)
+        return await Funcionario.query()
+                                .preload('cargo')
+                                .preload('comandas')
+                                .paginate(page, perPage);
+
     }
 
     async show({params}: HttpContext){
-        return await Funcionario.findOrFail(params.id)
+        return await Funcionario.query()
+                                .where('id', params.id)
+                                .preload('cargo')
+                                .preload('comandas')
+                                .firstOrFail();
     }
 
     async store({request}: HttpContext){

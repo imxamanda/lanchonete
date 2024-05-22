@@ -9,7 +9,9 @@ export default class TiposController {
         const page = request.input('page', 1)
         const perPage = request.input('perPage', 10)
 
-        return await Tipo.query().preload('produtos').paginate(page, perPage)
+        return await Tipo.query()
+                         .preload('produtos')
+                         .paginate(page, perPage)
     }
 
     async show({params}: HttpContext){
